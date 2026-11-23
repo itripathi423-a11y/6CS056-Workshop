@@ -1,64 +1,22 @@
+<x-layouts.app title="Create Course">
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Create Course</title>
-</head>
-<body>
+    <h1>Create Course</h1>
 
-<h1>Create Course</h1>
+    <form action="{{ route('courses.store') }}"
+          method="POST">
 
-@if($errors->any())
-    <ul>
-        @foreach($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-@endif
+        @csrf
 
-<form action="/courses" method="POST">
-    @csrf
+        @include('course._form')
 
-    <label for="name">Course Name</label>
-    <input type="text" id="name" name="name"
-           value="{{ old('name') }}">
-    <br><br>
+        <button type="submit" class="btn">
+            Create Course
+        </button>
 
-    <label for="description">Description</label>
-    <textarea id="description" name="description">{{ old('description') }}</textarea>
-    <br><br>
+        <a href="{{ route('courses.index') }}">
+            Cancel
+        </a>
 
-    <label for="duration">Duration (Weeks)</label>
-    <input type="number" id="duration" name="duration"
-           value="{{ old('duration') }}">
-    <br><br>
+    </form>
 
-    <label for="fee">Course Fee</label>
-    <input type="number" step="0.01" id="fee" name="fee"
-           value="{{ old('fee') }}">
-    <br><br>
-
-    <label for="difficulty">Difficulty</label>
-    <select id="difficulty" name="difficulty">
-        <option value="">Select Difficulty</option>
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
-    </select>
-    <br><br>
-
-    <label for="is_active">Active</label>
-    <input type="checkbox" id="is_active"
-           name="is_active" value="1"
-           {{ old('is_active', '1') ? 'checked' : '' }}>
-    <br><br>
-
-    <button type="submit">Create Course</button>
-</form>
-
-<br>
-
-<a href="/courses">Back to Courses</a>
-
-</body>
-</html>
+</x-layouts.app>
